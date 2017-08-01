@@ -1,0 +1,18 @@
+.topLine {
+  display: flex;
+  justify-content: space-between;
+}
+.guesses {
+  display: flex;
+  justify-content: center;
+}
+
+.word {
+  display: flex;
+  justify-content: center;
+}
+
+.letterguessesd {
+  display: flex;
+  justify-content: center;
+}
