@@ -16,3 +16,7 @@
   display: flex;
   justify-content: center;
 }
+.spaces {
+  display: flex;
+  justify-content: space-around;
+}
