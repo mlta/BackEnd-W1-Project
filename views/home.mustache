@@ -27,7 +27,12 @@
       </div>
 
       <div class="letterguessesd">
-        <p>Letters guessed:</p><p> E, F, B</p>
+        <p>Letters guessed:</p>
+        <p>
+          {{#lettersthatuserguessed}}
+          {{.}}
+          {{/lettersthatuserguessed}}
+        </p>
       </div>
     </main>
   </body>

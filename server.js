@@ -3,43 +3,57 @@ const express = require("express")
 const mustacheExpress = require("mustache-express")
 const expressValidator = require("express-validator")
 const bodyParser = require("body-parser")
-const lettersthatuserguessed = []
 const app = express()
 const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n")
+
 //console.log(words)
 app.engine("mustache", mustacheExpress())
 app.set("views", "./views")
 app.set("view engine", "mustache")
 
 app.use(express.static("public"))
-
 app.use(bodyParser.json())
-
 app.use(bodyParser.urlencoded({ extended: false }))
-
 app.use(expressValidator())
 
+const lettersthatuserguessed = []
 const randomWord = words[Math.floor(Math.random() * words.length)]
-console.log(Math.floor(Math.random() * words.length))
-console.log(words[Math.floor(Math.random() * words.length)])
+console.log(randomWord)
+
+// console.log(Math.floor(Math.random() * words.length))
+// console.log(words[Math.floor(Math.random() * words.length)])
 
 app.get("/", (request, response) => {
   let conversionUnderscores = []
-  console.log(randomWord)
-  //   for (var i = 0; i < randomWord.length; i++) {
-  //    if(/*checn if the the current letter of the randomWord has been used*/)
-  //     conversionUnderscores.push(" _ ")
-  //   }
 
-  //console.log(conversionUnderscores)
-  let lettersfound = conversionUnderscores.join("")
-  //
-  response.render("home", { lettersfound })
+  for (let i = 0; i < randomWord.length; i++) {
+    const letter = randomWord[i]
+    if (lettersthatuserguessed.includes(letter)) {
+      conversionUnderscores.push(letter)
+    } else {
+      conversionUnderscores.push("_")
+    }
+  }
+
+  const lettersfound = conversionUnderscores.join("")
+  response.render("home", { lettersfound, lettersthatuserguessed })
 })
 // only to store it.
+const guesseleft = 8
+if (lettersthatuserguessed) {
+}
+
 app.post("/", (request, response) => {
   const storeletter = request.body.letter
-  lettersthatuserguessed.push(storeletter)
+
+  // Maria changes the code that says "false" to something dynamic
+  // that determins if `storeletter` has already been guessed.
+  const letterAlreadyGuessed = false
+  if (!letterAlreadyGuessed) {
+    lettersthatuserguessed.push(storeletter)
+  }
+  // Otherwise, nothing
+
   response.redirect("/")
 })
 
